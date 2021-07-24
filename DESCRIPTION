@@ -1,0 +1,16 @@
+Package: multiknockoffs
+Title: Multiple knockoff procedures
+Version: 0.0.1
+Authors@R: 
+    person(given = "Chrysovalantis",
+           family = "Karypidis",
+           role = c("aut", "cre"),
+           email = "valanti_k@outlook.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Estimation of multiple knockoff filters.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
