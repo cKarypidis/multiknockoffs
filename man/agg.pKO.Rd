@@ -33,14 +33,14 @@ This function should be used in combination with \code{\link{mult.knockoffs}} an
 \code{\link{mult.knockfilter}} (see example).
 }
 \examples{
-n = 400; p = 200; s_0 = 30
-amplitude = 1; mu = rep(0,p); rho = 0.25
-Sigma = toeplitz(rho^(0:(p-1)))
+n <- 400; p <- 200; s_0 <- 30
+amplitude <- 1; mu <- rep(0,p); rho <- 0.25
+Sigma <- toeplitz(rho^(0:(p-1)))
 
-X = MASS::mvrnorm(n, mu, Sigma)
-nonzero = sample(p, s_0)
-beta = amplitude * (1:p \%in\% nonzero)
-y = X \%*\% beta + rnorm(n)
+X <- MASS::mvrnorm(n, mu, Sigma)
+nonzero <- sample(p, s_0)
+beta <- amplitude * (1:p \%in\% nonzero)
+y <- X \%*\% beta + rnorm(n)
 
 # Construction of K knockoff matrices
 Xk <- mult.knockoffs(X, K = 20)

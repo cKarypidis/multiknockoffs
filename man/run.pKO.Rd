@@ -70,14 +70,14 @@ where \eqn{Z_j} and \eqn{\tilde{Z}_j} are the coefficient estimates for the
 jth variable and its knockoff, respectively.
 }
 \examples{
-n = 400; p = 200; s_0 = 30
-amplitude = 1; mu = rep(0,p); rho = 0.25
-Sigma = toeplitz(rho^(0:(p-1)))
+n <- 400; p <- 200; s_0 <- 30
+amplitude <- 1; mu <- rep(0,p); rho <- 0.25
+Sigma <- toeplitz(rho^(0:(p-1)))
 
-X = MASS::mvrnorm(n, mu, Sigma)
-nonzero = sample(p, s_0)
-beta = amplitude * (1:p \%in\% nonzero)
-y = X \%*\% beta + rnorm(n)
+X <- MASS::mvrnorm(n, mu, Sigma)
+nonzero <- sample(p, s_0)
+beta <- amplitude * (1:p \%in\% nonzero)
+y <- X \%*\% beta + rnorm(n)
 
 # Basic usage with default arguments
 res.pKO <- run.pKO(X, y, pvals = T)
@@ -86,7 +86,7 @@ res.pKO
 # Advanced usage with customized knockoff construction (equi-correlated)
 equi.knock <- function(X) create.second_order(X, method = "equi")
 res.pKO <- run.pKO(X, y, knockoffs = equi.knock, pvals = T)
- 
+res.pKO
 
 }
 \references{

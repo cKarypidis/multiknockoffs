@@ -51,21 +51,21 @@ jth variable and its knockoff, respectively.
 The function should be used in combination with \code{\link{mult.knockoffs}} (see example)
 }
 \examples{
-n = 400; p = 200; s_0 = 30
-amplitude = 1; mu = rep(0,p); rho = 0.25
+n <- 400; p <- 200; s_0 <- 30
+amplitude <- 1; mu <- rep(0,p); rho <- 0.25
 Sigma = toeplitz(rho^(0:(p-1)))
 
-X = MASS::mvrnorm(n, mu, Sigma)
-nonzero = sample(p, s_0)
-beta = amplitude * (1:p \%in\% nonzero)
-y = X \%*\% beta + rnorm(n)
+X <- MASS::mvrnorm(n, mu, Sigma)
+nonzero <- sample(p, s_0)
+beta <- amplitude * (1:p \%in\% nonzero)
+y <- X \%*\% beta + rnorm(n)
 
 # Construction of K knockoff matrices
 Xk <- mult.knockoffs(X, K = 5)
 
 # Basic usage with default arguments
 mult.res <- mult.knockfilter(X, Xk, y)
-  
+
 
 }
 \references{

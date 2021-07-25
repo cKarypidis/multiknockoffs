@@ -29,10 +29,10 @@ The default knockoff sampler \code{create.second_order} is the second-order Gaus
 the \code{knockoff} package.
 }
 \examples{
-n = 400; p = 200
-mu = rep(0,p); rho = 0.25
-Sigma = toeplitz(rho^(0:(p-1)))
-X = MASS::mvrnorm(n, mu, Sigma)
+n <- 400; p <- 200
+mu <- rep(0,p); rho <- 0.25
+Sigma <- toeplitz(rho^(0:(p-1)))
+X <- MASS::mvrnorm(n, mu, Sigma)
 
 # Basic usage with default arguments
 Xk <- mult.knockoffs(X, K = 5)
@@ -41,7 +41,7 @@ Xk
 # Advanced usage with customized knockoff construction (equi-correlated)
 equi.knock <- function(X) create.second_order(X, method = "equi")
 Xk <- mult.knockoffs(X, K = 5, knockoffs = equi.knock)
- 
+
 
 }
 \references{
