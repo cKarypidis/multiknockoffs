@@ -1,8 +1,8 @@
 #' @title P-value knockoffs
 #'
-#' @description This function runs the whole p-value knockoff p, i.e. it generates multiple knockoff matrices,
+#' @description This function runs the whole p-value knockoff procedure, i.e. it generates multiple knockoff matrices,
 #'              estimates the scores, computes intermediate p-values and aggregates them before applying
-#'              Benjamini-Hochberg or Benjamini-Yekutieli in the last step.
+#'              Benjamini-Hochberg or Benjamini-Yekutieli in the last step to obtain the final selection set.
 #'
 #' @param X n x p matrix of original variables.
 #' @param y response vector of length n.
@@ -19,7 +19,7 @@
 #'               If \code{gamma = NULL}, the adaptive search by Meinshausen et al. (2009) is used. Default: 0.3.
 #' @param offset either 0 (knockoff) or 1 (knockoff+). Default: 1.
 #' @param method the FDR controlling method in the last step. Either \code{"BH"} (default) or \code{"BY"}.
-#' @param pvals if the aggregated p-values should be reported (logical). Default: \code{FALSE}.
+#' @param pvals logical argument if the aggregated p-values should be reported. Default: \code{FALSE}.
 #'
 #' @return A list containing following components:
 #'  \item{Shat}{aggregated selection set.}
@@ -32,6 +32,10 @@
 #'
 #' The default knockoff sampler \code{create.second_order} is the second-order Gaussian knockoff construction from
 #' the \code{knockoff} package.
+#'
+#' Although the default knockoff sampler is based on ASDP, we recommend using the equi-correlated
+#' construction within \code{create.second_order} because it performs significantly better. See the example below
+#' that shows how the user can change the knockoff sampler \code{create.second_order} to create equi-correlated knockoffs.
 #'
 #' The default score function \code{stat.glmnet_coefdiff} is from the \code{knockoff} package.
 #' It fits a  Lasso regression where the regularization parameter \eqn{\lambda} is tuned by cross-validation.
@@ -78,12 +82,22 @@
 run.pKO <-  function(X, y,
                      knockoffs = create.second_order,
                      statistic = stat.glmnet_coefdiff,
-                     q=0.2, B=25, gamma = 0.3,
+                     q = 0.2, B = 25, gamma = 0.3,
                      offset = 1, method = "BH", pvals = F, ...){
 
   library(knockoff)
 
-  # Validate input dimensions
+  #Validate input checks
+  if (!is.matrix(X)){
+    stop("Input X must be a matrix")
+  }
+
+
+  if (!is.factor(y) && !is.numeric(y)) {
+    stop('Input y must be either of numeric or factor type')
+  }
+  if( is.numeric(y) ) y = as.vector(y)
+
   n = nrow(X); p = ncol(X)
   stopifnot(length(y) == n)
 
@@ -95,7 +109,9 @@ run.pKO <-  function(X, y,
   if (!is.function(knockoffs)) stop('Input knockoffs must be a function')
   if (!is.function(statistic)) stop('Input statistic must be a function')
 
-
+  if(!B == round(B)){
+    stop("B must be an integer")
+  }
 
   #Knockoff construction
   Xk <- mult.knockoffs(X = X, K = B, knockoffs = knockoffs)

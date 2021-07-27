@@ -43,7 +43,7 @@ If \code{gamma = NULL}, the adaptive search by Meinshausen et al. (2009) is used
 
 \item{method}{the FDR controlling method in the last step. Either \code{"BH"} (default) or \code{"BY"}.}
 
-\item{pvals}{if the aggregated p-values should be reported (logical). Default: \code{FALSE}.}
+\item{pvals}{logical argument if the aggregated p-values should be reported. Default: \code{FALSE}.}
 }
 \value{
 A list containing following components:
@@ -52,15 +52,19 @@ A list containing following components:
 \item{pvals}{if specified, vector of aggregated p-values.}
 }
 \description{
-This function runs the whole p-value knockoff p, i.e. it generates multiple knockoff matrices,
+This function runs the whole p-value knockoff procedure, i.e. it generates multiple knockoff matrices,
 estimates the scores, computes intermediate p-values and aggregates them before applying
-Benjamini-Hochberg or Benjamini-Yekutieli in the last step.
+Benjamini-Hochberg or Benjamini-Yekutieli in the last step to obtain the final selection set.
 }
 \details{
 This function requires the installation of the \code{knockoff} package prior to its execution.
 
 The default knockoff sampler \code{create.second_order} is the second-order Gaussian knockoff construction from
 the \code{knockoff} package.
+
+Although the default knockoff sampler is based on ASDP, we recommend using the equi-correlated
+construction within \code{create.second_order} because it performs significantly better. See the example below
+that shows how the user can change the knockoff sampler \code{create.second_order} to create equi-correlated knockoffs.
 
 The default score function \code{stat.glmnet_coefdiff} is from the \code{knockoff} package.
 It fits a  Lasso regression where the regularization parameter \eqn{\lambda} is tuned by cross-validation.

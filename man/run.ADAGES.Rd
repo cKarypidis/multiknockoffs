@@ -36,7 +36,7 @@ define it manually. Default: \code{stat.glmnet_coefdiff} (see below).}
 
 \item{offset}{either 0 (knockoff) or 1 (knockoff+). Default: 1.}
 
-\item{type}{either ADAGES (default) or ADAGES.mod (see below).}
+\item{type}{either \code{"ADAGES"} (default) or \code{"ADAGES.mod"} (see below).}
 
 \item{sets}{logical argument if the K selection sets of each knockoff run
 should be returned. Default: \code{FALSE}.}
@@ -50,8 +50,8 @@ A list containing following components:
 }
 \description{
 This function runs the whole ADAGES procedure in the multiple knockoff setting, i.e.
-it generates multiple knockoff matrices, estimates the score functions and the selection set
-of each run, and aggregates them with ADAGES.
+it generates multiple knockoff matrices, estimates the score functions and the selection sets
+of multiple knockoff runs, which are then aggregated by ADAGES to obtain the final selection set.
 }
 \details{
 This function requires the installation of the \code{knockoff} package prior to its execution.
@@ -69,7 +69,7 @@ jth variable and its knockoff, respectively.
 \code{ADAGES} applies the minimization of the complexity ratio as a criterion to determine
 the optimal threshold.
 
-\code{ADAGES.mod} minimizes the trade-off between the threshold and the model complexity \eqn{c |\hat{\mathcal{S}_{(c)}}|}
+\code{ADAGES.mod} minimizes the trade-off between the threshold and the model complexity \eqn{c |S|}
 to determine the optimal threshold.
 }
 \examples{

@@ -102,6 +102,10 @@ run.uKO <- function(X, y,
   if (!is.function(knockoffs)) stop('Input knockoffs must be a function')
   if (!is.function(statistic)) stop('Input statistic must be a function')
 
+  if(!K == round(K)){
+    stop("K must be an integer")
+    }
+
   #If own sequence not specified: authors sequences
   if(is.null(q_seq)){
 

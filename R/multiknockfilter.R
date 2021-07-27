@@ -43,8 +43,18 @@ mult.knockoffs <- function(X, K, knockoffs = create.second_order){
 
   library(knockoff)
 
-  #Check if a function is supplied for knockoffs
+  #Input checks
+  if (!is.matrix(X)){
+    stop("Input X must be a matrix")
+  }
+
   if (!is.function(knockoffs)) stop('Input knockoffs must be a function')
+
+  if(!K == round(K)){
+    stop("K must be an integer")
+  }
+
+  #End checks
 
   # Validate input dimensions
   knock.list <- list()
@@ -70,7 +80,7 @@ mult.knockoffs <- function(X, K, knockoffs = create.second_order){
 
 #' Multiple knockoff filter
 #'
-#' This function that estimated multiple knockoff runs with different knockoff matrices.
+#' This function estimates multiple knockoff runs with different knockoff matrices.
 #'
 #' @param X n x p matrix of original variables.
 #' @param Xk list with K elements containing the n x p knockoff matrices.
@@ -98,7 +108,7 @@ mult.knockoffs <- function(X, K, knockoffs = create.second_order){
 #' where \eqn{Z_j} and \eqn{\tilde{Z}_j} are the coefficient estimates for the
 #' jth variable and its knockoff, respectively.
 #'
-#' The function should be used in combination with \code{\link{mult.knockoffs}} (see example)
+#' The function should be used in combination with \code{\link{mult.knockoffs}} (see example).
 #'
 #' @references
 #'   Candes, Fan, Janson, and Lv (2018). \emph{Panning for gold. model-X knockoffs for high
@@ -127,7 +137,7 @@ mult.knockfilter <- function(X, Xk, y, q = 0.2, offset = 1, statistic = stat.glm
 
   library(knockoff)
 
-  # Validate input types.
+  # Input checks.
   if (is.data.frame(X)) {
     X.names = names(X)
     X = as.matrix(X, rownames.force = F)

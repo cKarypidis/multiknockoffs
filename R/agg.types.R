@@ -12,7 +12,7 @@
 #' \code{\link{mult.knockfilter}}.
 #'
 #' The function does not have to be used in the context of multiple knockoffs.
-#' It can also be used to aggregate the selection sets of any FDR controlling procedure
+#' It can also be used to aggregate the selection sets of multiple FDR controlling procedures
 #' in general.
 #'
 #'
@@ -26,7 +26,8 @@
 #' beta <- amplitude * (1:p %in% nonzero)
 #' y <- X %*% beta + rnorm(n)
 #'
-#' Xk <- mult.knockoffs(X, K = 5)
+#' K <- 5
+#' Xk <- mult.knockoffs(X, K = K)
 #' q <- 0.2/2^((1:K)-1)
 #' mult.res <- mult.knockfilter(X, Xk, y, q = q)
 #' agg.union(mult.res$Shat.list)
@@ -34,7 +35,7 @@
 #'
 #' #General example (selection sets with indices between 1 and 30)
 #' Shat.list <- list(s1 = c(2,4,3,1,20,30), s2 = c(3,30,23,1,4,8),
-#'                  s3=c(3,4,5,13,15,12, 23:29, 30), s4 = c(1:10, 13:15, 17),
+#'                  s3 = c(3,4,5,13,15,12, 23:29, 30), s4 = c(1:10, 13:15, 17),
 #'                  s5 = c(15:20, 23))
 #' agg.union(Shat.list)
 #'
@@ -61,11 +62,11 @@ agg.union <- function(Shat.list){
 #' with the score vectors of length p, it computes aggregated p-values and applies
 #' either BH or BY in the last step.
 #'
-#' @param W.list n x p matrix of original variables.
+#' @param W.list list with B elements containing the vectors of scores with length p each.
 #' @param q nominal level for the FDR control. Default: 0.2.
 #' @param offset either 0 (knockoff) or 1 (knockoff+). Default: 1.
 #' @param method the FDR controlling method in the last step. Either \code{"BH"} (default) or \code{"BY"}.
-#' @param pvals if the aggregated p-values should be reported (logical). Default: \code{FALSE}.
+#' @param pvals logical argument if the aggregated p-values should be reported. Default: \code{FALSE}.
 #'
 #' @return A list containing following components:
 #'  \item{Shat}{aggregated selection set.}
@@ -103,7 +104,8 @@ agg.union <- function(Shat.list){
 #' y <- X %*% beta + rnorm(n)
 #'
 #' # Construction of K knockoff matrices
-#' Xk <- mult.knockoffs(X, K = 20)
+#' equi.knock <- function(X) create.second_order(X, method = "equi")
+#' Xk <- mult.knockoffs(X, K = 20, knockoffs = equi.knock)
 #'
 #' #Multiple knockoff filter
 #' mult.res <- mult.knockfilter(X, Xk, y)
@@ -114,6 +116,8 @@ agg.union <- function(Shat.list){
 #' @export
 agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pvals = F){
 
+  #Input checks
+  if (!is.list(W.list)) stop('Input W.list must be a list')
 
   if(offset!=1 && offset!=0) {
     stop('Input offset must be either 0 or 1')
@@ -182,6 +186,8 @@ agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pv
 #' It can also be used to aggregate the selection sets of any FDR controlling procedure
 #' in general.
 #'
+#' Applies the minimization of the complexity ratio as a criterion to determine the optimal threshold.
+#'
 #' @references
 #'   Gui (2020). \emph{ADAGES: adaptive aggregation with stability for distributed feature selection}.
 #'   Proceedings of the 2020 ACM-IMS on Foundations of Data Science Conference.
@@ -198,14 +204,13 @@ agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pv
 #' y <- X %*% beta + rnorm(n)
 #'
 #' Xk <- mult.knockoffs(X, K = 5)
-#' q <- 0.2
-#' mult.res <- mult.knockfilter(X, Xk, y, q = q)
-#' agg.ADAGES(mult.res$Shat.list, p = 30)
+#' mult.res <- mult.knockfilter(X, Xk, y)
+#' agg.ADAGES(mult.res$Shat.list, p = p)
 #'
 #'
 #' #General example (selection sets with indices between 1 and 30)
 #' Shat.list <- list(s1 = c(2,4,3,1,20,30), s2 = c(3,30,23,1,4,8),
-#'                  s3=c(3,4,5,13,15,12, 23:29, 30), s4 = c(1:10, 13:15, 17),
+#'                  s3 = c(3,4,5,13,15,12, 23:29, 30), s4 = c(1:10, 13:15, 17),
 #'                  s5 = c(15:20, 23))
 #' agg.ADAGES(Shat.list, p = 30)
 #'
@@ -213,7 +218,7 @@ agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pv
 #' @export
 agg.ADAGES <- function(Shat.list, p){
 
-
+  #Input check
   if (!is.list(Shat.list)) stop('Input Shat.list must be a list')
 
   K <- length(Shat.list)
@@ -282,6 +287,8 @@ agg.ADAGES <- function(Shat.list, p){
 #' It can also be used to aggregate the selection sets of any FDR controlling procedure
 #' in general.
 #'
+#' Applies the minimization of the trade-off between the threshold and the model complexity \eqn{c |S|}.
+#'
 #' @references
 #'   Gui (2020). \emph{ADAGES: adaptive aggregation with stability for distributed feature selection}.
 #'   Proceedings of the 2020 ACM-IMS on Foundations of Data Science Conference.
@@ -298,9 +305,8 @@ agg.ADAGES <- function(Shat.list, p){
 #' y <- X %*% beta + rnorm(n)
 #'
 #' Xk <- mult.knockoffs(X, K = 5)
-#' q <- 0.2
-#' mult.res <- mult.knockfilter(X, Xk, y, q = q)
-#' agg.ADAGES.mod(mult.res$Shat.list, p = 30)
+#' mult.res <- mult.knockfilter(X, Xk, y)
+#' agg.ADAGES.mod(mult.res$Shat.list, p = p)
 #'
 #'
 #' #General example (selection sets with indices between 1 and 30)
@@ -313,7 +319,7 @@ agg.ADAGES <- function(Shat.list, p){
 #' @export
 agg.ADAGES.mod <- function(Shat.list, p){
 
-
+  #Input check
   if (!is.list(Shat.list)) stop('Input Shat.list must be a list')
 
   K <- length(Shat.list)

@@ -27,6 +27,8 @@ The function can be used in combination with \code{\link{mult.knockoffs}} and
 The function does not have to be used in the context of multiple knockoffs.
 It can also be used to aggregate the selection sets of any FDR controlling procedure
 in general.
+
+Applies the minimization of the trade-off between the threshold and the model complexity \eqn{c |S|}.
 }
 \examples{
 #Multiple knockoff example
@@ -39,9 +41,8 @@ beta <- amplitude * (1:p \%in\% nonzero)
 y <- X \%*\% beta + rnorm(n)
 
 Xk <- mult.knockoffs(X, K = 5)
-q <- 0.2
-mult.res <- mult.knockfilter(X, Xk, y, q = q)
-agg.ADAGES.mod(mult.res$Shat.list, p = 30)
+mult.res <- mult.knockfilter(X, Xk, y)
+agg.ADAGES.mod(mult.res$Shat.list, p = p)
 
 
 #General example (selection sets with indices between 1 and 30)

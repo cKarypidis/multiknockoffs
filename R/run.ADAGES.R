@@ -2,8 +2,8 @@
 #'
 #' @description
 #' This function runs the whole ADAGES procedure in the multiple knockoff setting, i.e.
-#'  it generates multiple knockoff matrices, estimates the score functions and the selection set
-#'  of each run, and aggregates them with ADAGES.
+#' it generates multiple knockoff matrices, estimates the score functions and the selection sets
+#' of multiple knockoff runs, which are then aggregated by ADAGES to obtain the final selection set.
 #'
 #' @param X n x p matrix of original variables.
 #' @param y response vector of length n.
@@ -17,7 +17,7 @@
 #' @param q nominal level for the FDR control. Default: 0.2.
 #' @param K number of knockoff runs. Default: 5.
 #' @param offset either 0 (knockoff) or 1 (knockoff+). Default: 1.
-#' @param type either ADAGES (default) or ADAGES.mod (see below).
+#' @param type either \code{"ADAGES"} (default) or \code{"ADAGES.mod"} (see below).
 #' @param sets logical argument if the K selection sets of each knockoff run
 #'            should be returned. Default: \code{FALSE}.
 #'
@@ -44,7 +44,7 @@
 #' \code{ADAGES} applies the minimization of the complexity ratio as a criterion to determine
 #' the optimal threshold.
 #'
-#' \code{ADAGES.mod} minimizes the trade-off between the threshold and the model complexity \eqn{c |\hat{\mathcal{S}_{(c)}}|}
+#' \code{ADAGES.mod} minimizes the trade-off between the threshold and the model complexity \eqn{c |S|}
 #' to determine the optimal threshold.
 #'
 #' @references
@@ -80,7 +80,18 @@ run.ADAGES <- function(X, y,
 
   library(knockoff)
 
-  # Validate input dimensions
+  #Validate input checks
+  if (!is.matrix(X)){
+    stop("Input X must be a matrix")
+  }
+
+
+  if (!is.factor(y) && !is.numeric(y)) {
+    stop('Input y must be either of numeric or factor type')
+  }
+  if( is.numeric(y) ) y = as.vector(y)
+
+
   n = nrow(X); p = ncol(X)
   stopifnot(length(y) == n)
 
@@ -93,6 +104,9 @@ run.ADAGES <- function(X, y,
   if (!is.function(knockoffs)) stop('Input knockoffs must be a function')
   if (!is.function(statistic)) stop('Input statistic must be a function')
 
+  if(!K == round(K)){
+    stop("K must be an integer")
+  }
 
   #Knockoff construction
   Xk <- mult.knockoffs(X = X, K = K, knockoffs = knockoffs)
@@ -106,11 +120,13 @@ run.ADAGES <- function(X, y,
 
   if(type == "ADAGES"){
     res <- agg.ADAGES(Shat.list = Shat.list, p = p)
-  }
-
-  if(type == "ADAGES.mod"){
+    }
+  else if(type == "ADAGES.mod"){
     res <- agg.ADAGES.mod(Shat.list = Shat.list, p = p)
-  }
+    }
+  else{
+    stop("Unknown type of ADAGES method")
+    }
 
   if(sets == T){
     res$sets <- Shat.list

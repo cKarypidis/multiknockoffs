@@ -36,7 +36,7 @@ A list containing following components:
 \item{q}{the nominal level of each knockoff run.}
 }
 \description{
-This function that estimated multiple knockoff runs with different knockoff matrices.
+This function estimates multiple knockoff runs with different knockoff matrices.
 }
 \details{
 This function requires the installation of the \code{knockoff} package prior to its execution.
@@ -48,7 +48,7 @@ Then, the score is computed as the difference between
 where \eqn{Z_j} and \eqn{\tilde{Z}_j} are the coefficient estimates for the
 jth variable and its knockoff, respectively.
 
-The function should be used in combination with \code{\link{mult.knockoffs}} (see example)
+The function should be used in combination with \code{\link{mult.knockoffs}} (see example).
 }
 \examples{
 n <- 400; p <- 200; s_0 <- 30

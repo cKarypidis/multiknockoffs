@@ -7,7 +7,7 @@
 agg.pKO(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pvals = F)
 }
 \arguments{
-\item{W.list}{n x p matrix of original variables.}
+\item{W.list}{list with B elements containing the vectors of scores with length p each.}
 
 \item{q}{nominal level for the FDR control. Default: 0.2.}
 
@@ -15,7 +15,7 @@ agg.pKO(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pvals = F)
 
 \item{method}{the FDR controlling method in the last step. Either \code{"BH"} (default) or \code{"BY"}.}
 
-\item{pvals}{if the aggregated p-values should be reported (logical). Default: \code{FALSE}.}
+\item{pvals}{logical argument if the aggregated p-values should be reported. Default: \code{FALSE}.}
 }
 \value{
 A list containing following components:
@@ -43,7 +43,8 @@ beta <- amplitude * (1:p \%in\% nonzero)
 y <- X \%*\% beta + rnorm(n)
 
 # Construction of K knockoff matrices
-Xk <- mult.knockoffs(X, K = 20)
+equi.knock <- function(X) create.second_order(X, method = "equi")
+Xk <- mult.knockoffs(X, K = 20, knockoffs = equi.knock)
 
 #Multiple knockoff filter
 mult.res <- mult.knockfilter(X, Xk, y)
