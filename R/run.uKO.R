@@ -1,8 +1,9 @@
 #' Union knockoff filter
 #'
 #' This function runs the whole union knockoff procedure, i.e. it generates multiple
-#' knockoff matrices, estimates the score functions and the selection set of each run,
-#' and aggregates them by their union.
+#' knockoff matrices, estimates the score functions and the selection sets of multiple knockoff
+#' runs, which are then aggregated by their union to obtain the final selection set.
+#'
 #'
 #' @param X n x p matrix of original variables.
 #' @param y response vector of length n.
@@ -17,7 +18,7 @@
 #'            or \code{"ave"} for \eqn{q_{k} = q/K}.
 #' @param q nominal level for the FDR control. Default: 0.2.
 #' @param K number of knockoff runs. Default: 5.
-#' @param q_seq  define a manual sequence of nominal levels, which has to match in length
+#' @param q_seq  manual sequence of nominal level which has to match in length
 #'               with the number of knockoff runs \code{K}. If this argument is specified, \code{qk} and \code{q} are
 #'               ignored.
 #' @param offset either 0 (knockoff) or 1 (knockoff+). Default: 1.
@@ -80,6 +81,27 @@ run.uKO <- function(X, y,
 
   library(knockoff)
 
+  #Validate input checks
+  if (!is.matrix(X)){
+    stop("Input X must be a matrix")
+    }
+
+
+  if (!is.factor(y) && !is.numeric(y)) {
+    stop('Input y must be either of numeric or factor type')
+  }
+  if( is.numeric(y) ) y = as.vector(y)
+
+  n = nrow(X); p = ncol(X)
+  stopifnot(length(y) == n)
+
+  if(offset!=1 && offset!=0) {
+    stop('Input offset must be either 0 or 1')
+  }
+
+  if (!is.function(knockoffs)) stop('Input knockoffs must be a function')
+  if (!is.function(statistic)) stop('Input statistic must be a function')
+
   #If own sequence not specified: authors sequences
   if(is.null(q_seq)){
 
@@ -98,6 +120,7 @@ run.uKO <- function(X, y,
   #Validate equal length of q_seq and K.
   stopifnot(length(q_seq) == K)
 
+  ##end checks
 
   #Knockoff construction
   Xk <- mult.knockoffs(X = X, K = K, knockoffs = knockoffs)

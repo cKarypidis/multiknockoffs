@@ -38,7 +38,7 @@ or \code{"ave"} for \eqn{q_{k} = q/K}.}
 
 \item{K}{number of knockoff runs. Default: 5.}
 
-\item{q_seq}{define a manual sequence of nominal levels, which has to match in length
+\item{q_seq}{manual sequence of nominal level which has to match in length
 with the number of knockoff runs \code{K}. If this argument is specified, \code{qk} and \code{q} are
 ignored.}
 
@@ -56,8 +56,8 @@ A list containing following components:
 }
 \description{
 This function runs the whole union knockoff procedure, i.e. it generates multiple
-knockoff matrices, estimates the score functions and the selection set of each run,
-and aggregates them by their union.
+knockoff matrices, estimates the score functions and the selection sets of multiple knockoff
+runs, which are then aggregated by their union to obtain the final selection set.
 }
 \details{
 This function requires the installation of the \code{knockoff} package prior to its execution.
