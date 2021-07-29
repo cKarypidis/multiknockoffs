@@ -5,7 +5,7 @@
 #' it generates multiple knockoff matrices, estimates the score functions and the selection sets
 #' of multiple knockoff runs, which are then aggregated by ADAGES to obtain the final selection set.
 #'
-#' @param X n x p matrix of original variables.
+#' @param X n x p matrix or data frame of original variables.
 #' @param y response vector of length n.
 #' @param knockoffs function for the knockoff construction. It must take the n x p matrix as input
 #'                  and it must return a n x p knockoff matrix. Either choose a knockoff sampler of
@@ -81,9 +81,15 @@ run.ADAGES <- function(X, y,
   library(knockoff)
 
   #Validate input checks
-  if (!is.matrix(X)){
-    stop("Input X must be a matrix")
+  if (is.data.frame(X)) {
+    X.names = names(X)
+    X = as.matrix(X, rownames.force = F)
+  } else if (is.matrix(X)) {
+    X.names = colnames(X)
+  } else {
+    stop('Input X must be a numeric matrix or data frame')
   }
+  if (!is.numeric(X)) stop('Input X must be a numeric matrix or data frame')
 
 
   if (!is.factor(y) && !is.numeric(y)) {

@@ -3,7 +3,7 @@
 #' This function generates a specified number of knockoff matrices given the data
 #' and a knockoff sampling function.
 #'
-#' @param X n x p matrix of original variables.
+#' @param X n x p matrix or data frame of original variables.
 #' @param K number of knockoff matrices.
 #' @param knockoffs function for the knockoff construction. It must take the n x p matrix as input
 #'                  and it must return a n x p knockoff matrix. Either choose a knockoff sampler of
@@ -44,19 +44,23 @@ multi.knockoffs <- function(X, K, knockoffs = create.second_order){
   library(knockoff)
 
   #Input checks
-  if (!is.matrix(X)){
-    stop("Input X must be a matrix")
+  if (is.data.frame(X)) {
+    X.names = names(X)
+    X = as.matrix(X, rownames.force = F)
+  } else if (is.matrix(X)) {
+    X.names = colnames(X)
+  } else {
+    stop('Input X must be a numeric matrix or data frame')
   }
+  if (!is.numeric(X)) stop('Input X must be a numeric matrix or data frame')
 
   if (!is.function(knockoffs)) stop('Input knockoffs must be a function')
 
   if(!K == round(K)){
     stop("K must be an integer")
   }
-
   #End checks
 
-  # Validate input dimensions
   knock.list <- list()
 
   for(k in 1:K){
@@ -82,7 +86,7 @@ multi.knockoffs <- function(X, K, knockoffs = create.second_order){
 #'
 #' This function estimates multiple knockoff runs with different knockoff matrices.
 #'
-#' @param X n x p matrix of original variables.
+#' @param X n x p matrix or data frame of original variables.
 #' @param Xk list with K elements containing the n x p knockoff matrices.
 #' @param y response vector of length n.
 #' @param q nominal level for the FDR control. Default: 0.2.
@@ -165,7 +169,6 @@ multi.knockfilter <- function(X, Xk, y, q = 0.2, offset = 1, statistic = stat.gl
   if(any(q < 0 | q > 1)){
     print('q must be between 0 and 1')
   }
-
 
   #Knockoff filter for 1 to K
   W.list <- list()

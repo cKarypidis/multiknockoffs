@@ -18,7 +18,7 @@ run.uKO(
 )
 }
 \arguments{
-\item{X}{n x p matrix of original variables.}
+\item{X}{n x p matrix or data frame of original variables.}
 
 \item{y}{response vector of length n.}
 

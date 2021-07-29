@@ -14,7 +14,7 @@ multi.knockfilter(
 )
 }
 \arguments{
-\item{X}{n x p matrix of original variables.}
+\item{X}{n x p matrix or data frame of original variables.}
 
 \item{Xk}{list with K elements containing the n x p knockoff matrices.}
 

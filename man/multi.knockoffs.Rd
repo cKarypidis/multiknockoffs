@@ -7,7 +7,7 @@
 multi.knockoffs(X, K, knockoffs = create.second_order)
 }
 \arguments{
-\item{X}{n x p matrix of original variables.}
+\item{X}{n x p matrix or data frame of original variables.}
 
 \item{K}{number of knockoff matrices.}
 
