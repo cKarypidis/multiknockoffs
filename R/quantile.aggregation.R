@@ -23,7 +23,6 @@
 quantile.aggregation <- function(pvals, gamma = NULL){
 
   #Input checks
-  #Validate input checks
   if (!is.matrix(pvals)){
     stop("Input pvals must be a matrix")
   }
@@ -31,7 +30,7 @@ quantile.aggregation <- function(pvals, gamma = NULL){
   p <- ncol(pvals)
   B <- nrow(pvals)
 
-  #If no gamma is provides, compute sequence
+  #If no gamma is provided, compute sequence
   if(is.null(gamma)){ gamma <- seq(ceiling(0.05 * B) / B, 1 - 1 / B, by = 1/B)}
 
   pvals.aggr <- numeric(p)
