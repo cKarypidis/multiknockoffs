@@ -32,7 +32,6 @@ quantile.aggregation <- function(pvals, B, gamma = NULL){
     stop("B must be an integer")
   }
 
-
   #If no gamma is provides, compute sequence
   if(is.null(gamma)){ gamma <- seq(ceiling(0.05 * B) / B, 1 - 1 / B, by = 1/B)}
 

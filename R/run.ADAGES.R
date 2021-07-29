@@ -89,7 +89,7 @@ run.ADAGES <- function(X, y,
   if (!is.factor(y) && !is.numeric(y)) {
     stop('Input y must be either of numeric or factor type')
   }
-  if( is.numeric(y) ) y = as.vector(y)
+  if(is.numeric(y)) y = as.vector(y)
 
 
   n = nrow(X); p = ncol(X)
@@ -98,6 +98,10 @@ run.ADAGES <- function(X, y,
 
   if(offset!=1 && offset!=0) {
     stop('Input offset must be either 0 or 1')
+  }
+
+  if(q < 0 | q > 1) {
+    stop('q must be between 0 and 1')
   }
 
   #For New part Checks

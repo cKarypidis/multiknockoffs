@@ -105,6 +105,10 @@ run.pKO <-  function(X, y,
     stop('Input offset must be either 0 or 1')
   }
 
+  if(q < 0 | q > 1) {
+    stop('q must be between 0 and 1')
+  }
+
   #For New part Checks
   if (!is.function(knockoffs)) stop('Input knockoffs must be a function')
   if (!is.function(statistic)) stop('Input statistic must be a function')

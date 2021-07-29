@@ -156,9 +156,16 @@ multi.knockfilter <- function(X, Xk, y, q = 0.2, offset = 1, statistic = stat.gl
     stop('Input offset must be either 0 or 1')
   }
 
+  if(q < 0 | q > 1) {
+    stop('q must be between 0 and 1')
+  }
+
   K <- length(Xk)
+
   if(length(q) == 1){q <- rep(q, K)}
-  if (length(q) != K) stop('Vector q must be of length K')
+  if(length(q) != K){
+    stop('Vector q must be of length K')
+  }
 
 
   #Knockoff filter for 1 to K

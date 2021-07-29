@@ -123,6 +123,10 @@ agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pv
     stop('Input offset must be either 0 or 1')
   }
 
+  if(q < 0 | q > 1) {
+    stop('q must be between 0 and 1')
+  }
+
   # Input dimensions
   p <- length(W.list[[1]])
   B <- length(W.list)
