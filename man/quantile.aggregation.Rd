@@ -4,12 +4,11 @@
 \alias{quantile.aggregation}
 \title{P-values quantile aggregation.}
 \usage{
-\method{quantile}{aggregation}(pvals, B, gamma = NULL)
+\method{quantile}{aggregation}(pvals, gamma = NULL)
 }
 \arguments{
-\item{pvals}{B x p matrix of p-values for all variables.}
-
-\item{B}{number of p-values for one variable.}
+\item{pvals}{B x p matrix of p-values for all variables. B is the number of p-values
+per variable.}
 
 \item{gamma}{value between (0,1) which defines the quantile value used for the aggregation.
 If \code{gamma = NULL}, the adaptive search by Meinshausen et al. (2009) is used.

@@ -3,8 +3,8 @@
 #' This function aggregates p-values by the quantile aggregation proposed by
 #' Meinshausen et al. (2009).
 #'
-#' @param pvals B x p matrix of p-values for all variables.
-#' @param B number of p-values for one variable.
+#' @param pvals B x p matrix of p-values for all variables. B is the number of p-values
+#'              per variable.
 #' @param gamma value between (0,1) which defines the quantile value used for the aggregation.
 #'               If \code{gamma = NULL}, the adaptive search by Meinshausen et al. (2009) is used.
 #'               Default: \code{NULL}.
@@ -20,7 +20,7 @@
 #'   Journal of the American Statistical Association 104(488), 1671-1681.
 #'
 #' @export
-quantile.aggregation <- function(pvals, B, gamma = NULL){
+quantile.aggregation <- function(pvals, gamma = NULL){
 
   #Input checks
   #Validate input checks
@@ -32,10 +32,12 @@ quantile.aggregation <- function(pvals, B, gamma = NULL){
     stop("B must be an integer")
   }
 
+  p <- ncol(pvals)
+  B <- nrow(pvals)
+
   #If no gamma is provides, compute sequence
   if(is.null(gamma)){ gamma <- seq(ceiling(0.05 * B) / B, 1 - 1 / B, by = 1/B)}
 
-  p <- ncol(pvals)
   pvals.aggr <- numeric(p)
 
   for(j in 1:p){#loop over all features

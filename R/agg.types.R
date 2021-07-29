@@ -151,7 +151,7 @@ agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pv
   }
 
   #Step2: Aggregated p-values
-  agg.pval <- quantile.aggregation(int.pval, B, gamma)
+  agg.pval <- quantile.aggregation(int.pval, gamma)
 
   #Step3: Compute BH/BY
   if(method %in% c("BH", "BY")){
