@@ -114,14 +114,14 @@ run.pKO <-  function(X, y,
   }
 
   #Knockoff construction
-  Xk <- mult.knockoffs(X = X, K = B, knockoffs = knockoffs)
+  Xk <- multi.knockoffs(X = X, K = B, knockoffs = knockoffs)
 
   #Knockoff filters
-  mult.filter <- mult.knockfilter(X, Xk, y, q = q, offset = offset,
+  multi.filter <- multi.knockfilter(X, Xk, y, q = q, offset = offset,
                                   statistic = statistic)
 
 
-  W.list <- mult.filter$W.list
+  W.list <- multi.filter$W.list
 
 
   pKO.res <- agg.pKO(W.list = W.list, q=q, gamma = gamma, offset = offset, method = method,

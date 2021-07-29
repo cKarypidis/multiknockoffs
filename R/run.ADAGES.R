@@ -109,14 +109,14 @@ run.ADAGES <- function(X, y,
   }
 
   #Knockoff construction
-  Xk <- mult.knockoffs(X = X, K = K, knockoffs = knockoffs)
+  Xk <- multi.knockoffs(X = X, K = K, knockoffs = knockoffs)
 
   #Knockoff filters
-  mult.filter <- mult.knockfilter(X, Xk, y, q = q, offset = offset,
+  multi.filter <- multi.knockfilter(X, Xk, y, q = q, offset = offset,
                                   statistic = statistic)
 
 
-  Shat.list <- mult.filter$Shat.list
+  Shat.list <- multi.filter$Shat.list
 
   if(type == "ADAGES"){
     res <- agg.ADAGES(Shat.list = Shat.list, p = p)

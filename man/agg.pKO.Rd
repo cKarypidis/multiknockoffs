@@ -29,8 +29,8 @@ with the score vectors of length p, it computes aggregated p-values and applies
 either BH or BY in the last step.
 }
 \details{
-This function should be used in combination with \code{\link{mult.knockoffs}} and
-\code{\link{mult.knockfilter}} (see example).
+This function should be used in combination with \code{\link{multi.knockoffs}} and
+\code{\link{multi.knockfilter}} (see example).
 }
 \examples{
 n <- 400; p <- 200; s_0 <- 30
@@ -44,12 +44,12 @@ y <- X \%*\% beta + rnorm(n)
 
 # Construction of K knockoff matrices
 equi.knock <- function(X) create.second_order(X, method = "equi")
-Xk <- mult.knockoffs(X, K = 20, knockoffs = equi.knock)
+Xk <- multi.knockoffs(X, K = 20, knockoffs = equi.knock)
 
 #Multiple knockoff filter
-mult.res <- mult.knockfilter(X, Xk, y)
+multi.res <- multi.knockfilter(X, Xk, y)
 
-pKO.res <- agg.pKO(mult.res$W.list)
+pKO.res <- agg.pKO(multi.res$W.list)
 pKO.res
 
 }

@@ -8,8 +8,8 @@
 #'
 #' @details
 #'
-#' The function can be used in combination with \code{\link{mult.knockoffs}} and
-#' \code{\link{mult.knockfilter}}.
+#' The function can be used in combination with \code{\link{multi.knockoffs}} and
+#' \code{\link{multi.knockfilter}}.
 #'
 #' The function does not have to be used in the context of multiple knockoffs.
 #' It can also be used to aggregate the selection sets of multiple FDR controlling procedures
@@ -27,10 +27,10 @@
 #' y <- X %*% beta + rnorm(n)
 #'
 #' K <- 5
-#' Xk <- mult.knockoffs(X, K = K)
+#' Xk <- multi.knockoffs(X, K = K)
 #' q <- 0.2/2^((1:K)-1)
-#' mult.res <- mult.knockfilter(X, Xk, y, q = q)
-#' agg.union(mult.res$Shat.list)
+#' multi.res <- multi.knockfilter(X, Xk, y, q = q)
+#' agg.union(multi.res$Shat.list)
 #'
 #'
 #' #General example (selection sets with indices between 1 and 30)
@@ -75,8 +75,8 @@ agg.union <- function(Shat.list){
 #'
 #' @details
 #'
-#' This function should be used in combination with \code{\link{mult.knockoffs}} and
-#' \code{\link{mult.knockfilter}} (see example).
+#' This function should be used in combination with \code{\link{multi.knockoffs}} and
+#' \code{\link{multi.knockfilter}} (see example).
 #'
 #'
 #' @references
@@ -105,12 +105,12 @@ agg.union <- function(Shat.list){
 #'
 #' # Construction of K knockoff matrices
 #' equi.knock <- function(X) create.second_order(X, method = "equi")
-#' Xk <- mult.knockoffs(X, K = 20, knockoffs = equi.knock)
+#' Xk <- multi.knockoffs(X, K = 20, knockoffs = equi.knock)
 #'
 #' #Multiple knockoff filter
-#' mult.res <- mult.knockfilter(X, Xk, y)
+#' multi.res <- multi.knockfilter(X, Xk, y)
 #'
-#' pKO.res <- agg.pKO(mult.res$W.list)
+#' pKO.res <- agg.pKO(multi.res$W.list)
 #' pKO.res
 #'
 #' @export
@@ -179,8 +179,8 @@ agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pv
 #'
 #' @details
 #'
-#' The function can be used in combination with \code{\link{mult.knockoffs}} and
-#' \code{\link{mult.knockfilter}}.
+#' The function can be used in combination with \code{\link{multi.knockoffs}} and
+#' \code{\link{multi.knockfilter}}.
 #'
 #' The function does not have to be used in the context of multiple knockoffs.
 #' It can also be used to aggregate the selection sets of any FDR controlling procedure
@@ -203,9 +203,9 @@ agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pv
 #' beta <- amplitude * (1:p %in% nonzero)
 #' y <- X %*% beta + rnorm(n)
 #'
-#' Xk <- mult.knockoffs(X, K = 5)
-#' mult.res <- mult.knockfilter(X, Xk, y)
-#' agg.ADAGES(mult.res$Shat.list, p = p)
+#' Xk <- multi.knockoffs(X, K = 5)
+#' multi.res <- multi.knockfilter(X, Xk, y)
+#' agg.ADAGES(multi.res$Shat.list, p = p)
 #'
 #'
 #' #General example (selection sets with indices between 1 and 30)
@@ -280,8 +280,8 @@ agg.ADAGES <- function(Shat.list, p){
 #'
 #' @details
 #'
-#' The function can be used in combination with \code{\link{mult.knockoffs}} and
-#' \code{\link{mult.knockfilter}}.
+#' The function can be used in combination with \code{\link{multi.knockoffs}} and
+#' \code{\link{multi.knockfilter}}.
 #'
 #' The function does not have to be used in the context of multiple knockoffs.
 #' It can also be used to aggregate the selection sets of any FDR controlling procedure
@@ -304,9 +304,9 @@ agg.ADAGES <- function(Shat.list, p){
 #' beta <- amplitude * (1:p %in% nonzero)
 #' y <- X %*% beta + rnorm(n)
 #'
-#' Xk <- mult.knockoffs(X, K = 5)
-#' mult.res <- mult.knockfilter(X, Xk, y)
-#' agg.ADAGES.mod(mult.res$Shat.list, p = p)
+#' Xk <- multi.knockoffs(X, K = 5)
+#' multi.res <- multi.knockfilter(X, Xk, y)
+#' agg.ADAGES.mod(multi.res$Shat.list, p = p)
 #'
 #'
 #' #General example (selection sets with indices between 1 and 30)

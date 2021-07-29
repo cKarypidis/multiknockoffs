@@ -127,15 +127,15 @@ run.uKO <- function(X, y,
   ##end checks
 
   #Knockoff construction
-  Xk <- mult.knockoffs(X = X, K = K, knockoffs = knockoffs)
+  Xk <- multi.knockoffs(X = X, K = K, knockoffs = knockoffs)
 
   #Knockoff filters
-  mult.filter <- mult.knockfilter(X, Xk, y, q = q_seq, offset = offset,
+  multi.filter <- multi.knockfilter(X, Xk, y, q = q_seq, offset = offset,
                                   statistic = statistic)
 
 
-  q_bound <- sum(mult.filter$q)
-  Shatk <- mult.filter$Shat.list
+  q_bound <- sum(multi.filter$q)
+  Shatk <- multi.filter$Shat.list
 
   if(K == 1)
   {S_hat.final = Shatk[[1]]

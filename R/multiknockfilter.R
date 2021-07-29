@@ -30,16 +30,16 @@
 #' X <- MASS::mvrnorm(n, mu, Sigma)
 #'
 #' # Basic usage with default arguments
-#' Xk <- mult.knockoffs(X, K = 5)
+#' Xk <- multi.knockoffs(X, K = 5)
 #' Xk
 #'
 #' # Advanced usage with customized knockoff construction (equi-correlated)
 #' equi.knock <- function(X) create.second_order(X, method = "equi")
-#' Xk <- mult.knockoffs(X, K = 5, knockoffs = equi.knock)
+#' Xk <- multi.knockoffs(X, K = 5, knockoffs = equi.knock)
 #'
 #'
 #' @export
-mult.knockoffs <- function(X, K, knockoffs = create.second_order){
+multi.knockoffs <- function(X, K, knockoffs = create.second_order){
 
   library(knockoff)
 
@@ -108,7 +108,7 @@ mult.knockoffs <- function(X, K, knockoffs = create.second_order){
 #' where \eqn{Z_j} and \eqn{\tilde{Z}_j} are the coefficient estimates for the
 #' jth variable and its knockoff, respectively.
 #'
-#' The function should be used in combination with \code{\link{mult.knockoffs}} (see example).
+#' The function should be used in combination with \code{\link{multi.knockoffs}} (see example).
 #'
 #' @references
 #'   Candes, Fan, Janson, and Lv (2018). \emph{Panning for gold. model-X knockoffs for high
@@ -126,14 +126,14 @@ mult.knockoffs <- function(X, K, knockoffs = create.second_order){
 #' y <- X %*% beta + rnorm(n)
 #'
 #' # Construction of K knockoff matrices
-#' Xk <- mult.knockoffs(X, K = 5)
+#' Xk <- multi.knockoffs(X, K = 5)
 #'
 #' # Basic usage with default arguments
-#' mult.res <- mult.knockfilter(X, Xk, y)
+#' multi.res <- multi.knockfilter(X, Xk, y)
 #'
 #'
 #' @export
-mult.knockfilter <- function(X, Xk, y, q = 0.2, offset = 1, statistic = stat.glmnet_coefdiff){
+multi.knockfilter <- function(X, Xk, y, q = 0.2, offset = 1, statistic = stat.glmnet_coefdiff){
 
   library(knockoff)
 

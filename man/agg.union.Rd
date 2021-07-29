@@ -16,8 +16,8 @@ Aggregated union set of selected variables.
 This function aggregates a list of selection sets by their union.
 }
 \details{
-The function can be used in combination with \code{\link{mult.knockoffs}} and
-\code{\link{mult.knockfilter}}.
+The function can be used in combination with \code{\link{multi.knockoffs}} and
+\code{\link{multi.knockfilter}}.
 
 The function does not have to be used in the context of multiple knockoffs.
 It can also be used to aggregate the selection sets of multiple FDR controlling procedures
@@ -34,10 +34,10 @@ beta <- amplitude * (1:p \%in\% nonzero)
 y <- X \%*\% beta + rnorm(n)
 
 K <- 5
-Xk <- mult.knockoffs(X, K = K)
+Xk <- multi.knockoffs(X, K = K)
 q <- 0.2/2^((1:K)-1)
-mult.res <- mult.knockfilter(X, Xk, y, q = q)
-agg.union(mult.res$Shat.list)
+multi.res <- multi.knockfilter(X, Xk, y, q = q)
+agg.union(multi.res$Shat.list)
 
 
 #General example (selection sets with indices between 1 and 30)
