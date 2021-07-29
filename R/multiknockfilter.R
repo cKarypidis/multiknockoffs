@@ -148,7 +148,6 @@ multi.knockfilter <- function(X, Xk, y, q = 0.2, offset = 1, statistic = stat.gl
   }
   if (!is.numeric(X)) stop('Input X must be a numeric matrix or data frame')
 
-  #Checks
   if (!is.list(Xk)) stop('Input Xk must be a list')
   if (!is.function(statistic)) stop('Input statistic must be a function')
 
@@ -156,15 +155,15 @@ multi.knockfilter <- function(X, Xk, y, q = 0.2, offset = 1, statistic = stat.gl
     stop('Input offset must be either 0 or 1')
   }
 
-  if(q < 0 | q > 1) {
-    stop('q must be between 0 and 1')
-  }
-
   K <- length(Xk)
 
   if(length(q) == 1){q <- rep(q, K)}
   if(length(q) != K){
     stop('Vector q must be of length K')
+  }
+
+  if(any(q < 0 | q > 1)){
+    print('q must be between 0 and 1')
   }
 
 
