@@ -4,6 +4,20 @@
 #'              estimates the scores, computes intermediate p-values and aggregates them before applying
 #'              Benjamini-Hochberg or Benjamini-Yekutieli in the last step to obtain the final selection set.
 #'
+#' @usage
+#'   run.pKO(
+#'   X,
+#'   y,
+#'   knockoffs = create.second_order,
+#'   statistic = stat.glmnet_coefdiff,
+#'   q = 0.2,
+#'   B = 25,
+#'   gamma = 0.3,
+#'   offset = 1,
+#'   method = "BH",
+#'   pvals = F
+#'   )
+#'
 #' @param X n x p matrix or data frame of original variables.
 #' @param y response vector of length n.
 #' @param knockoffs function for the knockoff construction. It must take the n x p matrix as input

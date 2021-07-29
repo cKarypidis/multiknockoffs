@@ -14,9 +14,8 @@ run.pKO(
   gamma = 0.3,
   offset = 1,
   method = "BH",
-  pvals = F,
-  ...
-)
+  pvals = F
+  )
 }
 \arguments{
 \item{X}{n x p matrix or data frame of original variables.}
