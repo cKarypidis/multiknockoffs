@@ -21,11 +21,13 @@ devtools::install_github("cKarypidis/multiknockoffs")
 
 Gui, Y. (2020). ADAGES. Proceedings of the 2020 ACM-IMS on Foundations of Data
 Science Conference. ACM.
+http://dx.doi.org/10.1145/3412815.3416881
 
 Nguyen, T.-B., J.-A. Chevalier, B. Thirion, and S. Arlot (2020). Aggregation of Multiple
 Knockoﬀs. Proceedings of the 37th International Conference on Machine Learning. Ed.
 by H. D. III and A. Singh. Vol. 119. Proceedings of Machine Learning Research. PMLR,
 7283–7293.
+https://arxiv.org/abs/2002.09269?context=stat.ML
 
 Xie, F. and J. Lederer (2021). Aggregating Knockoﬀs for False Discovery Rate Control
 with an Application to Gut Microbiome Data. Entropy 23(2), 230. 
