@@ -28,10 +28,6 @@ quantile.aggregation <- function(pvals, gamma = NULL){
     stop("Input pvals must be a matrix")
   }
 
-  if(!B == round(B)){
-    stop("B must be an integer")
-  }
-
   p <- ncol(pvals)
   B <- nrow(pvals)
 
