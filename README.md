@@ -1,5 +1,5 @@
 # Estimation of multiple knockoff procedures
-This package provides implementations of several multiple knockoff aggegration schemes in R. 
+This package provides implementations of several multiple knockoff aggegration schemes in `R`. 
 
 ## Description
 Multiple knockoff procedures run the knockoff filter multiple times, each time with a different knockoff matrix, and then aggregate the results in a way such that FDR control is (hopefully) still retained while reducing the variability from the probabilistic knockoff construction. The multiple knockoff filters also aim to increase the statistical power of the aggregated selection set.
@@ -15,7 +15,13 @@ devtools::install_github("cKarypidis/multiknockoffs")
 ```
 
 ## Examples
+Since this package is part of a Master's thesis, the user can find examples within that work or in the regarding help menu of the package in the `R` console. Similar to the `knockoff` package, which implements the fixed-X and model-X knockoff filter, the user can either run the whole procedure by one function or each step manually. In the following we will list the regarding sections of the Master's thesis that contain examples.
+- Section 5.1.2 to run union knockoffs as whole procedure.
+- Section 5.2.2 to run p-value knockoffs as whole procedure.
+- Section 5.3.2 to run ADAGES as whole procedure.
+- Section A.6.2 to run each step of the procedures manually. 
 
+A vignette is in progress.
 
 ## Resources
 
