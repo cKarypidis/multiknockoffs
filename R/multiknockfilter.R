@@ -89,7 +89,8 @@ multi.knockoffs <- function(X, K, knockoffs = create.second_order){
 #' @param X n x p matrix or data frame of original variables.
 #' @param Xk list with K elements containing the n x p knockoff matrices.
 #' @param y response vector of length n.
-#' @param q nominal level for the FDR control. Default: 0.2.
+#' @param q either a scalar or vector of nominal levels. If a scalar is supplied,
+#'           then the same nominal level is used for each knockoff run. Default: 0.2.
 #' @param offset either 0 (knockoff) or 1 (knockoff+). Default: 1.
 #' @param statistic function that computes the score vector \eqn{W} of length p. It must take the data matrix,
 #'                  knockoff matrix and response vector as input and outputs a vector of computed

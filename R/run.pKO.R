@@ -5,7 +5,7 @@
 #'              Benjamini-Hochberg or Benjamini-Yekutieli in the last step to obtain the final selection set.
 #'
 #' @usage
-#'   run.pKO(
+#'  run.pKO(
 #'   X,
 #'   y,
 #'   knockoffs = create.second_order,
@@ -16,7 +16,7 @@
 #'   offset = 1,
 #'   method = "BH",
 #'   pvals = F
-#'   )
+#' )
 #'
 #' @param X n x p matrix or data frame of original variables.
 #' @param y response vector of length n.

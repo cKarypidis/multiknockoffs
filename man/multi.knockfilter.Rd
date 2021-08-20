@@ -20,7 +20,8 @@ multi.knockfilter(
 
 \item{y}{response vector of length n.}
 
-\item{q}{nominal level for the FDR control. Default: 0.2.}
+\item{q}{either a scalar or vector of nominal levels. If a scalar is supplied,
+then the same nominal level is used for each knockoff run. Default: 0.2.}
 
 \item{offset}{either 0 (knockoff) or 1 (knockoff+). Default: 1.}
 
