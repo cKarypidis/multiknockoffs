@@ -14,7 +14,7 @@ run.uKO(
   K = 5,
   q_seq = NULL,
   offset = 1,
-  sets = F
+  sets = FALSE
 )
 }
 \arguments{
@@ -86,12 +86,12 @@ beta <- amplitude * (1:p \%in\% nonzero)
 y <- X \%*\% beta + rnorm(n)
 
 # Basic usage with default arguments
-res.uKO <- run.uKO(X, y, sets = T)
+res.uKO <- run.uKO(X, y, sets = TRUE)
 res.uKO
 
 # Advanced usage with customized knockoff construction (equi-correlated)
 equi.knock <- function(X) create.second_order(X, method = "equi")
-res.uKO <- run.uKO(X, y, knockoffs = equi.knock, sets = T)
+res.uKO <- run.uKO(X, y, knockoffs = equi.knock, sets = TRUE)
 res.uKO
 
 }

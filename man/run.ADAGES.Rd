@@ -13,7 +13,7 @@ run.ADAGES(
   K = 5,
   offset = 1,
   type = "ADAGES",
-  sets = F
+  sets = FALSE
 )
 }
 \arguments{
@@ -83,12 +83,12 @@ beta <- amplitude * (1:p \%in\% nonzero)
 y <- X \%*\% beta + rnorm(n)
 
 # Basic usage with default arguments
-res.ADAGES <- run.ADAGES(X, y, sets = T)
+res.ADAGES <- run.ADAGES(X, y, sets = TRUE)
 res.ADAGES
 
 # Advanced usage with customized knockoff construction (equi-correlated)
 equi.knock <- function(X) create.second_order(X, method = "equi")
-res.ADAGES <- run.ADAGES(X, y, knockoffs = equi.knock, sets = T)
+res.ADAGES <- run.ADAGES(X, y, knockoffs = equi.knock, sets = TRUE)
 res.ADAGES
 
 }

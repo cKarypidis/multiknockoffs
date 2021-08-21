@@ -63,12 +63,12 @@
 #' y <- X %*% beta + rnorm(n)
 #'
 #' # Basic usage with default arguments
-#' res.ADAGES <- run.ADAGES(X, y, sets = T)
+#' res.ADAGES <- run.ADAGES(X, y, sets = TRUE)
 #' res.ADAGES
 #'
 #' # Advanced usage with customized knockoff construction (equi-correlated)
 #' equi.knock <- function(X) create.second_order(X, method = "equi")
-#' res.ADAGES <- run.ADAGES(X, y, knockoffs = equi.knock, sets = T)
+#' res.ADAGES <- run.ADAGES(X, y, knockoffs = equi.knock, sets = TRUE)
 #' res.ADAGES
 #'
 #' @export
@@ -76,7 +76,7 @@ run.ADAGES <- function(X, y,
                       knockoffs = create.second_order,
                       statistic = stat.glmnet_coefdiff,
                       q = 0.2, K = 5, offset = 1,
-                      type = "ADAGES", sets = F){
+                      type = "ADAGES", sets = FALSE){
 
   library(knockoff)
 
@@ -138,7 +138,7 @@ run.ADAGES <- function(X, y,
     stop("Unknown type of ADAGES method")
     }
 
-  if(sets == T){
+  if(sets == TRUE){
     res$sets <- Shat.list
   }
 

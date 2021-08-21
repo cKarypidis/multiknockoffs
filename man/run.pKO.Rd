@@ -14,7 +14,7 @@ run.pKO(
   gamma = 0.3,
   offset = 1,
   method = "BH",
-  pvals = F
+  pvals = FALSE
 )
 }
 \arguments{
@@ -83,12 +83,12 @@ beta <- amplitude * (1:p \%in\% nonzero)
 y <- X \%*\% beta + rnorm(n)
 
 # Basic usage with default arguments
-res.pKO <- run.pKO(X, y, pvals = T)
+res.pKO <- run.pKO(X, y, pvals = TRUE)
 res.pKO
 
 # Advanced usage with customized knockoff construction (equi-correlated)
 equi.knock <- function(X) create.second_order(X, method = "equi")
-res.pKO <- run.pKO(X, y, knockoffs = equi.knock, pvals = T)
+res.pKO <- run.pKO(X, y, knockoffs = equi.knock, pvals = TRUE)
 res.pKO
 
 }

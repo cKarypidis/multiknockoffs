@@ -114,7 +114,7 @@ agg.union <- function(Shat.list){
 #' pKO.res
 #'
 #' @export
-agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pvals = F){
+agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pvals = FALSE){
 
   #Input checks
   if (!is.list(W.list)) stop('Input W.list must be a list')
@@ -163,7 +163,7 @@ agg.pKO <-  function(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pv
   Shat <- as.numeric(which(p_corr <= q))
   res <- list(Shat = Shat, B = B)
 
-  if(pvals == T){res <- list(Shat=Shat, B = B, pvals = agg.pval)}
+  if(pvals == TRUE){res <- list(Shat=Shat, B = B, pvals = agg.pval)}
 
   return(res)
 }

@@ -4,7 +4,7 @@
 \alias{agg.pKO}
 \title{Aggregation by p-value knockoffs}
 \usage{
-agg.pKO(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pvals = F)
+agg.pKO(W.list, q = 0.2, gamma = 0.3, offset = 1, method = "BH", pvals = FALSE)
 }
 \arguments{
 \item{W.list}{list with B elements containing the vectors of scores with length p each.}

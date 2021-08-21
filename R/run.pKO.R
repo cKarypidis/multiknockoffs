@@ -15,7 +15,7 @@
 #'   gamma = 0.3,
 #'   offset = 1,
 #'   method = "BH",
-#'   pvals = F
+#'   pvals = FALSE
 #' )
 #'
 #' @param X n x p matrix or data frame of original variables.
@@ -84,12 +84,12 @@
 #' y <- X %*% beta + rnorm(n)
 #'
 #' # Basic usage with default arguments
-#' res.pKO <- run.pKO(X, y, pvals = T)
+#' res.pKO <- run.pKO(X, y, pvals = TRUE)
 #' res.pKO
 #'
 #' # Advanced usage with customized knockoff construction (equi-correlated)
 #' equi.knock <- function(X) create.second_order(X, method = "equi")
-#' res.pKO <- run.pKO(X, y, knockoffs = equi.knock, pvals = T)
+#' res.pKO <- run.pKO(X, y, knockoffs = equi.knock, pvals = TRUE)
 #' res.pKO
 #'
 #' @export
@@ -97,7 +97,7 @@ run.pKO <-  function(X, y,
                      knockoffs = create.second_order,
                      statistic = stat.glmnet_coefdiff,
                      q = 0.2, B = 25, gamma = 0.3,
-                     offset = 1, method = "BH", pvals = F, ...){
+                     offset = 1, method = "BH", pvals = FALSE, ...){
 
   library(knockoff)
 

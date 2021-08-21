@@ -64,12 +64,12 @@
 #' y <- X %*% beta + rnorm(n)
 #'
 #' # Basic usage with default arguments
-#' res.uKO <- run.uKO(X, y, sets = T)
+#' res.uKO <- run.uKO(X, y, sets = TRUE)
 #' res.uKO
 #'
 #' # Advanced usage with customized knockoff construction (equi-correlated)
 #' equi.knock <- function(X) create.second_order(X, method = "equi")
-#' res.uKO <- run.uKO(X, y, knockoffs = equi.knock, sets = T)
+#' res.uKO <- run.uKO(X, y, knockoffs = equi.knock, sets = TRUE)
 #' res.uKO
 #'
 #' @export
@@ -77,7 +77,7 @@ run.uKO <- function(X, y,
                     knockoffs = create.second_order,
                     statistic = stat.glmnet_coefdiff,
                     qk = "decseq", q = 0.2, K = 5, q_seq = NULL,
-                    offset = 1, sets = F){
+                    offset = 1, sets = FALSE){
 
   library(knockoff)
 
@@ -155,7 +155,7 @@ run.uKO <- function(X, y,
 
 
   #Return Part
-  if(sets == T){
+  if(sets == TRUE){
     return(list(Shat=S_hat.final, K = K, FDRbound = q_bound, sets = Shatk))
   }else{
     return(list(Shat=S_hat.final, K = K, FDRbound = q_bound))
