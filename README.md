@@ -13,7 +13,7 @@ to improve the power while (approximately) retaining empirical FDR control of th
 - ADAGES by Gui (2020). This procedure aggregates multiple selection procedures that have FDR control at q respectively by finding an adaptive threshold integer. Then, ADAGES selects all variables that occur at least as often as the magnitude of the threshold across all selection sets.
 
 ## Installation
-The package `multiknockoffs` can be directly installed in R with the devtools package by typing the following commands:
+The package `multiknockoffs` can be directly installed in `R` with the devtools package by typing the following commands:
 ```
 devtools::install_github("cKarypidis/multiknockoffs")
 ```
