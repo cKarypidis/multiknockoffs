@@ -12,6 +12,8 @@ to improve the power while (approximately) retaining empirical FDR control of th
 - p-value knockoffs by Nguyen et al. (2020). This aggregation scheme derives for each variable a p-value which is calculated from the multiple score statistic of choice. Then, the method applies either Benjamini-Hochberg or Benjamini-Yiekutieli to obtain the final selection set with FDR control.
 - ADAGES by Gui (2020). This procedure aggregates multiple selection procedures that have FDR control at q respectively by finding an adaptive threshold integer. Then, ADAGES selects all variables that occur at least as often as the magnitude of the threshold across all selection sets.
 
+Since the package has resulted complementary to my Master's thesis, the work contains compact explanations of each method. The user can have a closer look at section 5.1 for union knockoffs, section 5.2 for p-value knockoffs, section 5.3 for ADAGES and section 5.4 for a simulation study that compares the three methods regarding their power and empirical FDR values. Finally, Appendix B of the work presents some additional implementation details.
+
 ## Installation
 The package `multiknockoffs` can be directly installed in `R` with the devtools package by typing the following commands:
 ```
@@ -19,11 +21,34 @@ devtools::install_github("cKarypidis/multiknockoffs")
 ```
 
 ## Examples
-Since this package is part of a Master's thesis, the user can find examples within that work or in the regarding help menu of the package in the `R` console. Similar to the `knockoff` package, which implements the fixed-X and model-X knockoff filter, the user can either run the whole procedure by one function or each step manually. In the following we will list the regarding sections of the Master's thesis that contain examples.
-- Section 5.1.2 to run union knockoffs as whole procedure.
-- Section 5.2.2 to run p-value knockoffs as whole procedure.
-- Section 5.3.2 to run ADAGES as whole procedure.
-- Section A.6.2 to run each step of the procedures manually. 
+Similar to the `knockoff` package, which implements the fixed-X and model-X knockoff filter, the user can either run the whole procedure by one function or each step manually.
+In the following, we will present the application of each multiple knockoff method by the "all-in-one" approach. 
+
+Assume we generate data according to
+```
+n <- 400; p <- 200; s_0 <- 30   #s_0 is the number of true signal variables where p is the total number of variables
+amplitude <- 1; mu <- rep(0,p); rho <- 0.25
+Sigma <- toeplitz(rho^(0:(p-1)))
+
+X <- MASS::mvrnorm(n, mu, Sigma)
+nonzero <- sample(p, s_0)
+beta <- amplitude * (1:p %in% nonzero)
+y <- X %*% beta + rnorm(n)
+```
+The three multiple knockoff procedures with default options can be applied respectively by
+
+```
+#Union knockoffs
+res.uKO <- run.uKO(X, y, sets = TRUE)
+
+#P-value knockoffs
+res.pKO <- run.pKO(X, y, pvals = TRUE)
+
+#ADAGES
+res.ADAGES <- run.ADAGES(X, y, sets = TRUE)
+```
+
+For more in-depth explanations of the functions' arguments and outputs as well as the manual approach of each step, we refer to the **vignette** pdf document. Moreover, the user can find explanations and examples in the regarding help menu of the package in the `R` console. 
 
 A vignette is in progress.
 
