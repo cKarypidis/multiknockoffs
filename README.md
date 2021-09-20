@@ -12,7 +12,7 @@ to improve the power while (approximately) retaining empirical FDR control of th
 - p-value knockoffs by Nguyen et al. (2020). This aggregation scheme derives for each variable a p-value which is calculated from the multiple score statistic of choice. Then, the method applies either Benjamini-Hochberg or Benjamini-Yiekutieli to obtain the final selection set with FDR control.
 - ADAGES by Gui (2020). This procedure aggregates multiple selection procedures that have FDR control at q respectively by finding an adaptive threshold integer. Then, ADAGES selects all variables that occur at least as often as the magnitude of the threshold across all selection sets.
 
-Since the package has resulted complementary to my Master's thesis, the work contains compact explanations of each method. The user can have a closer look at section 5.1 for union knockoffs, section 5.2 for p-value knockoffs, section 5.3 for ADAGES and section 5.4 for a simulation study that compares the three methods regarding their power and empirical FDR values. Finally, Appendix B of the work presents some additional implementation details.
+Since the package has resulted complementary to my **Master's thesis**, the work contains compact explanations of each method. The user can have a closer look at Section 5.1 for union knockoffs, Section 5.2 for p-value knockoffs, Section 5.3 for ADAGES and Section 5.4 for a simulation study that compares the three methods regarding their power and empirical FDR values. Finally, Appendix B of the work presents some additional implementation details.
 
 ## Installation
 The package `multiknockoffs` can be directly installed in `R` with the devtools package by typing the following commands:
