@@ -2,11 +2,11 @@
 The package `multiknockoffs` provides implementations of several multiple knockoff aggegration schemes in `R`. 
 
 ## Description
-The knockoff filter () is a modern and powerful algorithm to control the false discovery rate (FDR) for a variety of different model classes, also including complex machine learning models such as neural networks, boosting, random forests or high-dimensional linear penalization methods. The procedure constructs fake features (a knockoff matrix), that mimic certain correlation propierties of the original variables. Since knockoffs behave similar to the original
+The knockoff filter (Barber and Candès (2015); Candès et al. (2018)) is a modern and powerful algorithm to control the false discovery rate (FDR) for a variety of different model classes, including complex machine learning models such as neural networks, boosting, random forests or high-dimensional linear penalization methods. The procedure constructs fake features (a knockoff matrix), that mimic certain correlation propierties of the original variables. Since knockoffs behave similar to the original
 features but are known to be artifcial null variables, they serve as a negative control
 group.
-Multiple knockoff procedures run the knockoff filter multiple times, each time with a different knockoff matrix, and then aggregate the results in a way such that empirical FDR control is (hopefully) still retained while reducing the variability from the probabilistic knockoff construction. The multiple knockoff filters also aim to increase the statistical power of the aggregated selection set.
-The package implements the following three aggregation procedures for multiple knockoffs:
+
+Multiple knockoff procedures run the knockoff filter multiple times, each time with a different knockoff matrix, and then aggregate the results in a way such that empirical FDR control is approximately retained while reducing the variability from the probabilistic knockoff construction. The multiple knockoff filters also aim to increase the statistical power of the aggregated selection set compared to a single knockoff run. The package implements the following three aggregation procedures for multiple knockoffs:
 - Union knockoffs by Xie and Lederer (2021). This method runs multiple knockoff filters with different nominal levels whose sum equals the nominal level of our desired FDR control.
 - p-value knockoffs by Nguyen et al. (2020). This aggregation scheme derives for each variable a p-value which is calculated from the multiple score statistic of choice. Then, the method applies either Benjamini-Hochberg or Benjamini-Yiekutieli to obtain the final selection set with FDR control.
 - ADAGES by Gui (2020). This procedure aggregates multiple selection procedures that have FDR control at q respectively by finding an adaptive threshold integer. Then, ADAGES selects all variables that occur at least as often as the magnitude of the threshold across all selection sets.
@@ -27,6 +27,20 @@ Since this package is part of a Master's thesis, the user can find examples with
 A vignette is in progress.
 
 ## Resources
+
+**Original knockoffs:**
+
+Barber, R. F. and E. J. Candès (2015). Controlling the false discovery rate via knockoffs.
+The Annals of Statistics 43(5), 2055-2085.
+http://dx.doi.org/10.1214/15-AOS1337
+
+Candès, E., Y. Fan, L. Janson, and J. Lv (2018). Panning for gold: 'model-X' knockoffs for
+high dimensional controlled variable selection. Journal of the Royal Statistical Society:
+Series B (Statistical Methodology) 80(3), 551-577.
+https://doi.org/10.1111/rssb.12265
+
+
+**Multiple knockoffs:**
 
 Gui, Y. (2020). ADAGES. Proceedings of the 2020 ACM-IMS on Foundations of Data
 Science Conference. ACM.
