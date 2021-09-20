@@ -2,7 +2,10 @@
 The package `multiknockoffs` provides implementations of several multiple knockoff aggegration schemes in `R`. 
 
 ## Description
-Multiple knockoff procedures run the knockoff filter multiple times, each time with a different knockoff matrix, and then aggregate the results in a way such that FDR control is (hopefully) still retained while reducing the variability from the probabilistic knockoff construction. The multiple knockoff filters also aim to increase the statistical power of the aggregated selection set.
+The knockoff filter () is a modern and powerful algorithm to control the false discovery rate (FDR) for a variety of different model classes, also including complex machine learning models such as neural networks, boosting, random forests or high-dimensional linear penalization methods. The procedure constructs fake features (a knockoff matrix), that mimic certain correlation propierties of the original variables. Since knockoffs behave similar to the original
+features but are known to be artifcial null variables, they serve as a negative control
+group.
+Multiple knockoff procedures run the knockoff filter multiple times, each time with a different knockoff matrix, and then aggregate the results in a way such that empirical FDR control is (hopefully) still retained while reducing the variability from the probabilistic knockoff construction. The multiple knockoff filters also aim to increase the statistical power of the aggregated selection set.
 The package implements the following three aggregation procedures for multiple knockoffs:
 - Union knockoffs by Xie and Lederer (2021). This method runs multiple knockoff filters with different nominal levels whose sum equals the nominal level of our desired FDR control.
 - p-value knockoffs by Nguyen et al. (2020). This aggregation scheme derives for each variable a p-value which is calculated from the multiple score statistic of choice. Then, the method applies either Benjamini-Hochberg or Benjamini-Yiekutieli to obtain the final selection set with FDR control.
