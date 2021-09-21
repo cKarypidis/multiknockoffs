@@ -1,5 +1,5 @@
 # Estimation of multiple knockoff procedures
-The package `multiknockoffs` provides implementations of several multiple knockoff aggegration schemes in `R`. 
+The package `multiknockoffs` provides implementations of several multiple knockoff aggegration schemes in `R`. The [vignette document](documentations/vignette.pdf) contains the implementation details.
 
 ## Description
 The knockoff filter (Barber and Candès (2015); Candès et al. (2018)) is a modern and powerful algorithm to control the false discovery rate (FDR) for a variety of different model classes, including complex machine learning models such as neural networks, boosting, random forests or high-dimensional linear penalization methods. The procedure constructs fake features (a knockoff matrix), that mimic certain correlation properties of the original variables. Since knockoffs behave similar to the original
