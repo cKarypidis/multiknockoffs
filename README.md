@@ -47,7 +47,7 @@ res.pKO <- run.pKO(X, y, pvals = TRUE)
 res.ADAGES <- run.ADAGES(X, y, sets = TRUE)
 ```
 
-For more in-depth explanations of the functions' arguments and outputs as well as the manual approach of each step, we refer to the **vignette** pdf document (in progress). Moreover, the user can find explanations and examples in the regarding help menu of the package in the `R` console. 
+For more in-depth explanations of the functions' arguments and outputs as well as the manual approach of each step, we refer to the [vignette pdf](documentations/vignette.pdf). Moreover, the user can find explanations and examples in the regarding help menu of the package in the `R` console. 
 
 ## Resources
 
